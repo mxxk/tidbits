@@ -9,3 +9,17 @@ docker run -it --privileged --pid=host ubuntu nsenter -t 1 -m -u -n -i sh
 ```
 
 Source: https://gist.github.com/BretFisher/5e1a0c7bcca4c735e716abf62afad389
+
+## Build Unminimized Ubuntu Docker Image w/ Timezone & Locale
+
+```Dockerfile
+FROM ubuntu:latest
+SHELL ["bash", "-c"]
+RUN ln -fs /usr/share/zoneinfo/America/Los_Angeles /etc/localtime
+RUN apt-get update
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y locales OTHER_DEPENDENCIES
+RUN yes | unminimize
+ARG LOCALE_UTF8=en_US.UTF-8
+RUN locale-gen "${LOCALE_UTF8}"
+ENV LC_ALL=${LOCALE_UTF8}
+```
