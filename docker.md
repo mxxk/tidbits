@@ -37,3 +37,5 @@ services:
     command:
       - bash
 ```
+
+Without `tty: true`, the entrypoint does not exit gracefully and ignores SIGTERM.
