@@ -23,3 +23,17 @@ ARG LOCALE_UTF8=en_US.UTF-8
 RUN locale-gen "${LOCALE_UTF8}"
 ENV LC_ALL=${LOCALE_UTF8}
 ```
+
+## Simple Long-Running Docker Container
+
+The Docker Compose configuration below can be spun up with `docker-compose up` and quickly gracefully terminate on Ctrl-C or equivalent.
+
+```yml
+version: '3'
+services:
+  main:
+    image: ubuntu:latest
+    tty: true
+    command:
+      - bash
+```
