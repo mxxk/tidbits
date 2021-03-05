@@ -36,6 +36,8 @@ services:
     tty: true
     command:
       - bash
+      - --noprofile
+      - --norc
 ```
 
 Without `tty: true`, the `bash` entrypoint does not exit gracefully and ignores SIGTERM.
