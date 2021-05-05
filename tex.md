@@ -12,7 +12,7 @@ An important realization in learning TeX expansion is the difference between exp
 
 1. Initial expression
 
-    ```
+    ```tex
     \ea1\ea2\ea3\a\ea4\b\c
     ```
 
@@ -55,3 +55,46 @@ An important realization in learning TeX expansion is the difference between exp
     ```
     <expansion of \a><expansion of \b><expansion of \c>
     ```
+
+### TeXbook Exercise 20.16
+
+#### Prompt
+
+Given arbitrary `\b`, `\c`, `\d` (macros without arguments), for example
+
+```tex
+\def\b{\c\c}
+\def\c{*}
+\def\d{\b\c}
+```
+
+define `\a` so that its replacement text consists of `\b` _fully expanded_, `\c` _not expanded_, and `\d` `expanded exactly once`.  That is, with the above definitions thereplacement text of `\a` should be
+
+```tex
+**\c\b\c
+```
+
+You may not use `\the` or `\noexpand` in the solution.
+
+### Solutions
+
+Many solutions are documented in **1 Expansion** in [_Around The Bend_](https://ctan.org/tex-archive/info/challenges/AroBend), but they are all significantly longer than the following:
+
+```tex
+\edef\next#1#2{\def#1{\b#2}}
+\expandafter\next\expandafter\a\expandafter{\expandafter\c\d}
+```
+
+After the above, `\meaning\a` prints out
+
+```
+macro:->**\c \b \c
+```
+
+as intended. The way it works is that the first `\expandafter` triggers an expansion which results in the expansion of `\d` as
+
+```
+\next\a{\c\b\c}
+```
+
+thus accomplishing the expansion of `\d` _exactly once_.
