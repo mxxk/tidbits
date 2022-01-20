@@ -41,3 +41,24 @@ services:
 ```
 
 Without `tty: true`, the `bash` entrypoint does not exit gracefully and ignores SIGTERM.
+
+## Prevent Docker Compose From Creating Default Networks
+
+By default, Docker Compose creates a default network for the project:
+
+<pre>
+$ docker-compose up
+[+] Running 2/0
+<strong> ⠿ Network project_default          Created</strong>
+ ⠿ Container project-service        Created
+</pre>
+
+To prevent this, edit `docker-compose.yml` to to put the service into bridged networking mode:
+
+<pre lang="yaml">
+version: '3'
+services:
+  service:
+    ...
+    <strong>network_mode: bridge</strong>
+</pre>
