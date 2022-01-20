@@ -42,7 +42,7 @@ services:
 
 Without `tty: true`, the `bash` entrypoint does not exit gracefully and ignores SIGTERM.
 
-## Prevent Docker Compose From Creating Default Networks
+## Prevent Docker Compose From Creating Default Network
 
 By default, Docker Compose creates a default network for the project:
 
